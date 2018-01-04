@@ -46,9 +46,9 @@ weight = int(input("Weight (kg): "))
 height = int(input("Height (cm): "))
 
 # Determine current level and goals
-fitness_level = int(input("Determine your level of Fitness: \n1: Little/no exercise \n2: Light exercise (1-3x/week) \n3: Moderate Exercise (3-5x/week) \n4: Heavy Exercise (6-7x/week) \n5: Very heavy exercise (twice per day) \n-> "))
-protein_goal = int(input("Determine your goals: \n1. Healthy sedentary adult. No workout \n2. Doing some form of exercise or trying to improve their body. \n3. Trying to get toned, lose fat, increase strength and improve performance \n->"))
-fat_goal = int(input("Determine your rate: \n1. Short term: contest preparation, photo-shoot preparation \n2. Moderate and reasonable rate, without being too fast \n3. Moderate yet longer approach, not compromising satiety. For Long-term lifestyle change"))
+fitness_level = int(input("\nDetermine your level of Fitness: \n1. Little/no exercise \n2. Light exercise (1-3x/week) \n3. Moderate Exercise (3-5x/week) \n4. Heavy Exercise (6-7x/week) \n5. Very heavy exercise (twice per day) \n-> "))
+protein_goal = int(input("\nDetermine your goals: \n1. Healthy sedentary adult. No workout \n2. Doing some form of exercise or trying to improve their body \n3. Trying to get toned, lose fat, increase strength and improve performance \n-> "))
+fat_goal = int(input("\nDetermine your rate: \n1. Short term: contest preparation, photo-shoot preparation \n2. Moderate and reasonable rate, without being too fast \n3. Moderate yet longer approach, not compromising satiety. For long-term lifestyle change \n-> "))
 
 # Compute Harris-Benedict equation
 if (sex == "m" or sex == "f"):
@@ -58,20 +58,20 @@ else:
 
 # Compute recommended intake for fat loss
 maximum_intake = bmr * fit_index.get(fitness_level)
-total_intake_for_fat_loss = steady_intake - deficit
+total_intake_for_fat_loss = maximum_intake - deficit
 
 # Compute protein and fat intake
-if (get(protein_goal) == 3):
+if (protein_goal == 3):
 	if (sex == "m"): 
 		# Index for male
-		protein_intake = protein_index.get(4)/2.2 * weight  
+		protein_intake = (protein_index.get(4)*2.2) * weight # 2.2: Pound-gram; 1000: kg-gram
 	else:
 		# Index for female
-		protein_intake = protein_index.get(3)/2.2 * weight 
+		protein_intake = (protein_index.get(3)*2.2) * weight
 else: 
-	protein_intake = protein_index.get(protein_goal)/2.2 * weight  
+	protein_intake = (protein_index.get(protein_goal)*2.2) * weight 
 
-fat_intake = fat_index.get(fat_goal)/2.2 * weight
+fat_intake = (fat_index.get(fat_goal)*2.2) * weight
 
 # Compute calories for protein and fat intakes
 protein_intake_calories = protein_intake * protein_cals_gram
@@ -82,9 +82,9 @@ carbs_intake_calories = total_intake_for_fat_loss -protein_intake_calories - fat
 carbs_intake = carbs_intake_calories/carbs_cals_gram
 
 
-print("BMR: " + str(bmr))
+print("\nBMR: " + str(bmr))
 print("Intake for fat loss: " + str(total_intake_for_fat_loss))
-print("\nRecommended intake: \n")
-print(" Protein: " + str(protein_intake) + "gr")
-print(" Carbs: " + str(carbs_intake) + "gr")
-print(" Fat: " + str(fat_intake) + "gr")
+print("\nRecommended macro intake: \n")
+print(" Protein: " + '{0:.4g}'.format(protein_intake) + " gr")
+print(" Carbs: " + '{0:.4g}'.format(carbs_intake) + " gr")
+print(" Fat: " + '{0:.4g}'.format(fat_intake) + " gr")
