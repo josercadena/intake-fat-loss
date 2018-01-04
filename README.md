@@ -4,5 +4,5 @@ Based on [Harris-Benedict principle](https://en.wikipedia.org/wiki/Harris%E2%80%
 
 ## To do 
 - [x] Harris-Benedict equation
-- [ ] Macros intake
+- [x] Macros intake
 - [ ] GUI
